@@ -18,7 +18,9 @@ public class EventsDTO {
 
     private String description;
 
-    private LocalDateTime hostedOn;
+    private LocalDateTime hostedFrom;
+
+    private LocalDateTime hostedTo;
 
     private LocalDateTime createdAt;
 

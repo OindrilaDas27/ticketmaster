@@ -11,4 +11,6 @@ public interface LocationService {
 
     @Transactional(readOnly = true)
     Map<Long, Locations> getLocationsById(Set<Long> id);
+
+    Locations getLocationsByCity(String city);
 }

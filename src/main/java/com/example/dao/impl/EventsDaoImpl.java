@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 
@@ -32,5 +31,14 @@ public class EventsDaoImpl {
 
     public List<EventCategory> getEventCategoryById(Set<Long> ids) {
         return eventsRepository.getEventCategoryById(ids);
+    }
+
+    public EventCategory getEventCategoryByName(String name) {
+        name = name.toUpperCase();
+        return eventsRepository.getEventCategoryByName(name);
+    }
+
+    public void insertEvent(Events event) {
+        eventsRepository.save(event);
     }
 }

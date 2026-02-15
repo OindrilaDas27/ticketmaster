@@ -25,8 +25,11 @@ public class Events {
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "hosted_on", nullable = false)
-    private LocalDateTime hostedOn;
+    @Column(name = "hosted_from", nullable = false)
+    private LocalDateTime hostedFrom;
+
+    @Column(name = "hosted_to", nullable = false)
+    private LocalDateTime hostedTo;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;

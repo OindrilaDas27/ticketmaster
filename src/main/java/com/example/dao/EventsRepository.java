@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 
-public interface EventsRepository extends JpaRepository<EventCategory, Long> {
+public interface EventsRepository extends JpaRepository<Events, Long> {
 
     @Query("SELECT new com.example.dto.EventCategoryDTO(" +
             "c.id, " +
@@ -26,4 +26,9 @@ public interface EventsRepository extends JpaRepository<EventCategory, Long> {
 
     @Query("SELECT c FROM EventCategory c WHERE c.id IN :ids")
     List<EventCategory> getEventCategoryById(Set <Long> ids);
+
+    @Query("SELECT c FROM EventCategory c WHERE upper(c.name) = :name")
+    EventCategory getEventCategoryByName(String name);
+
+    Events save(Events event);
 }

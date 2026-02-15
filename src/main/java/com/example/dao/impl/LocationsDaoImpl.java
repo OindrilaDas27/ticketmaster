@@ -44,4 +44,8 @@ public class LocationsDaoImpl {
     public List<Locations> getLocationsById(Set<Long> ids) {
         return locationsRepository.findByIds(ids);
     }
+
+    public Locations getLocationsByCity(String city) {
+        return locationsRepository.getLocationsByCity(city);
+    }
 }

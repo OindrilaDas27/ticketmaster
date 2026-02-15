@@ -17,4 +17,6 @@ public interface LocationsRepository extends JpaRepository<Locations, Long> {
 
     @Query("SELECT l FROM Locations l WHERE l.id IN :ids")
     List<Locations> findByIds(Set<Long> ids);
+
+    Locations getLocationsByCity(String city);
 }

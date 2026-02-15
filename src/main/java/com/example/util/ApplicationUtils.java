@@ -92,7 +92,8 @@ public class ApplicationUtils {
         eventsDTO.setUpdatedAt(events.getUpdatedAt());
         eventsDTO.setCategoryId(events.getCategoryId());
         eventsDTO.setStatus(events.getStatus());
-        eventsDTO.setHostedOn(events.getHostedOn());
+        eventsDTO.setHostedFrom(events.getHostedFrom());
+        eventsDTO.setHostedTo(events.getHostedTo());
         eventsDTO.setLocationId(events.getLocationId());
         eventsDTO.setTicketsBooked(events.getTicketsBooked());
         eventsDTO.setTicketAmount(events.getTicketAmount());

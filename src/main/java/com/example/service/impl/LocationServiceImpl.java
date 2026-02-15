@@ -34,4 +34,9 @@ public class LocationServiceImpl implements LocationService {
         return locations.stream()
                 .collect(Collectors.toMap(Locations::getId, location -> location));
     }
+
+    @Override
+    public Locations getLocationsByCity(String city) {
+        return locationsDao.getLocationsByCity(city);
+    }
 }
