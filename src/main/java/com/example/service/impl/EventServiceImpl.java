@@ -1,6 +1,7 @@
 package com.example.service.impl;
 
 import com.example.ApplicationConstants;
+import com.example.configuration.S3Properties;
 import com.example.dao.impl.EventsDaoImpl;
 import com.example.dto.EventCategoryDTO;
 import com.example.dto.EventsDTO;
@@ -26,11 +27,13 @@ public class EventServiceImpl implements EventService {
 
     private final EventsDaoImpl eventsDao;
     private final LocationService locationService;
+    private final S3Properties s3Properties;
 
     @Autowired
-    public EventServiceImpl(EventsDaoImpl eventsDao, LocationService locationService) {
+    public EventServiceImpl(EventsDaoImpl eventsDao, LocationService locationService, S3Properties s3Properties) {
         this.eventsDao = eventsDao;
         this.locationService = locationService;
+        this.s3Properties = s3Properties;
     }
 
     @Override
@@ -112,6 +115,12 @@ public class EventServiceImpl implements EventService {
     public Map<String, Object> createEvent(EventsDTO eventRequestBody) {
         if(eventRequestBody == null) {
             throw new RuntimeException("Event request body cannot be null");
+        }
+
+        if (eventRequestBody.getDisplayPicture() != null
+                && !eventRequestBody.getDisplayPicture().startsWith(s3Properties.publicUrlBase())) {
+            throw new IllegalArgumentException(
+                    "displayPicture URL must originate from configured storage base");
         }
 
         Events events = new Events();
