@@ -35,3 +35,13 @@ logging:
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 
+s3:
+  endpoint: ${S3_ENDPOINT}
+  region: ${S3_REGION:auto}
+  access-key: ${S3_ACCESS_KEY}
+  secret-key: ${S3_SECRET_KEY}
+  bucket: ${S3_BUCKET}
+  public-url-base: ${S3_PUBLIC_URL_BASE}
+  presign-expiry-seconds: 300
+  max-upload-bytes: 5242880
+  allowed-content-types: image/jpeg,image/png,image/webp
