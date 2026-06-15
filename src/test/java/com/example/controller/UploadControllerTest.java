@@ -55,7 +55,6 @@ class UploadControllerTest {
                 .thenThrow(new IllegalArgumentException("Content type not allowed: application/pdf"));
 
         mvc.perform(post("/uploads/presign")
-                        .contextPath("")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"contentType\":\"application/pdf\",\"purpose\":\"EVENT\"}"))
                 .andExpect(status().isBadRequest())
@@ -73,7 +72,6 @@ class UploadControllerTest {
         when(s3Service.generatePresignedUpload(eq("image/jpeg"), eq(UploadPurpose.EVENT))).thenReturn(fake);
 
         mvc.perform(post("/uploads/presign")
-                        .contextPath("")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"contentType\":\"image/jpeg\",\"purpose\":\"EVENT\"}"))
                 .andExpect(status().isOk())
