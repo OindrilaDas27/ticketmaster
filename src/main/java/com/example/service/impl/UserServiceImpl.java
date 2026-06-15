@@ -1,6 +1,7 @@
 package com.example.service.impl;
 
 import com.example.ApplicationConstants;
+import com.example.configuration.S3Properties;
 import com.example.dao.impl.UserDaoImpl;
 import com.example.dto.UserDTO;
 import com.example.entity.User;
@@ -24,17 +25,25 @@ public class UserServiceImpl implements UserService {
 
     private final UserDaoImpl userDao;
     private final UserValidation userValidation;
+    private final S3Properties s3Properties;
 
     @Autowired
-    public UserServiceImpl(UserDaoImpl userDao, UserValidation userValidation) {
+    public UserServiceImpl(UserDaoImpl userDao, UserValidation userValidation, S3Properties s3Properties) {
         this.userDao = userDao;
         this.userValidation = userValidation;
+        this.s3Properties = s3Properties;
     }
 
     @Override
     public UserDTO createUser(UserDTO userDto) {
         // Validate user data
         userValidation.validateForCreate(userDto);
+
+        if (userDto.getDisplayPicture() != null
+                && !userDto.getDisplayPicture().startsWith(s3Properties.publicUrlBase())) {
+            throw new IllegalArgumentException(
+                    "displayPicture URL must originate from configured storage base");
+        }
 
         // Convert DTO to Entity
         User user = ApplicationUtils.convertToEntity(userDto);
@@ -76,6 +85,12 @@ public class UserServiceImpl implements UserService {
     public UserDTO updateUser(Long id, UserDTO userDto) {
         // Validate ID
         userValidation.validateId(id);
+
+        if (userDto.getDisplayPicture() != null
+                && !userDto.getDisplayPicture().startsWith(s3Properties.publicUrlBase())) {
+            throw new IllegalArgumentException(
+                    "displayPicture URL must originate from configured storage base");
+        }
 
         // Find existing user
         User existingUser = userDao.findById(id)
