@@ -17,6 +17,6 @@ public record S3Properties(
         String allowedContentTypes
 ) {
     public List<String> allowedContentTypesList() {
-        return List.of(allowedContentTypes.split(","));
+        return List.of(allowedContentTypes.split("\\s*,\\s*"));
     }
 }
