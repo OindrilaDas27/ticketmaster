@@ -17,3 +17,4 @@ INSERT INTO users (username, email, first_name, last_name, phone_number) VALUES
 ('bob_johnson', 'bob.johnson@example.com', 'Bob', 'Johnson', '+1-555-0103')
 ON CONFLICT (username) DO NOTHING;
 
+ALTER TABLE users ADD COLUMN IF NOT EXISTS display_picture VARCHAR(512);
