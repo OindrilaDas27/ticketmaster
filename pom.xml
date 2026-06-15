@@ -78,6 +78,13 @@
             <artifactId>spring-dotenv</artifactId>
             <version>4.0.0</version>
         </dependency>
+
+        <!-- AWS SDK v2 - S3 (used against Cloudflare R2 via endpoint override) -->
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>s3</artifactId>
+            <version>2.25.0</version>
+        </dependency>
     </dependencies>
 
     <build>
