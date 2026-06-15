@@ -35,6 +35,9 @@ public class User {
     @Column(name = "phone_number", length = 20)
     private String phoneNumber;
 
+    @Column(name = "display_picture", length = 512)
+    private String displayPicture;
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 

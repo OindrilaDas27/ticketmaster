@@ -32,6 +32,7 @@ public class ApplicationUtils {
         userDto.setFirstName(user.getFirstName());
         userDto.setLastName(user.getLastName());
         userDto.setPhoneNumber(user.getPhoneNumber());
+        userDto.setDisplayPicture(user.getDisplayPicture());
         userDto.setCreatedAt(user.getCreatedAt());
         userDto.setUpdatedAt(user.getUpdatedAt());
 
@@ -55,6 +56,7 @@ public class ApplicationUtils {
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
         user.setPhoneNumber(userDto.getPhoneNumber());
+        user.setDisplayPicture(userDto.getDisplayPicture());
 
         return user;
     }
@@ -74,6 +76,7 @@ public class ApplicationUtils {
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
         user.setPhoneNumber(userDto.getPhoneNumber());
+        user.setDisplayPicture(userDto.getDisplayPicture());
     }
 
     public static EventsDTO convertToEventsDTO(Events events) {

@@ -35,6 +35,9 @@ public class UserDTO {
     @Size(max = 20, message = "Phone number must not exceed 20 characters")
     private String phoneNumber;
 
+    @Size(max = 512, message = "Display picture URL must not exceed 512 characters")
+    private String displayPicture;
+
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }
