@@ -15,6 +15,7 @@ public class ApplicationConstants {
     public static final String USER_ENDPOINT = "/users";
     public static final String EVENTS_ENDPOINT = "/events";
     public static final String LOCATION_ENDPOINT = "/locations";
+    public static final String UPLOAD_ENDPOINT = "/uploads";
 
     // Error Messages
     public static final String USER_NOT_FOUND = "User not found with id: ";
