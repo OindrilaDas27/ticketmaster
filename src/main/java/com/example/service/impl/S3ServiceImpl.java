@@ -24,6 +24,40 @@ public class S3ServiceImpl implements S3Service {
             throw new IllegalArgumentException(
                     "Content type not allowed: " + contentType);
         }
-        throw new UnsupportedOperationException("not yet implemented");
+
+        String ext = extensionFor(contentType);
+        String key = "%s/%s/%s.%s".formatted(
+                purpose.keyPrefix(),
+                java.time.LocalDate.now().format(java.time.format.DateTimeFormatter.ofPattern("yyyy/MM")),
+                java.util.UUID.randomUUID(),
+                ext);
+
+        software.amazon.awssdk.services.s3.model.PutObjectRequest putRequest =
+                software.amazon.awssdk.services.s3.model.PutObjectRequest.builder()
+                        .bucket(props.bucket())
+                        .key(key)
+                        .contentType(contentType)
+                        .build();
+
+        software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignRequest presignRequest =
+                software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignRequest.builder()
+                        .signatureDuration(java.time.Duration.ofSeconds(props.presignExpirySeconds()))
+                        .putObjectRequest(putRequest)
+                        .build();
+
+        software.amazon.awssdk.services.s3.presigner.model.PresignedPutObjectRequest presigned =
+                presigner.presignPutObject(presignRequest);
+
+        String publicUrl = props.publicUrlBase() + "/" + key;
+        return new PresignedUploadResponse(presigned.url().toString(), publicUrl, key, contentType);
+    }
+
+    private static String extensionFor(String contentType) {
+        return switch (contentType) {
+            case "image/jpeg" -> "jpg";
+            case "image/png" -> "png";
+            case "image/webp" -> "webp";
+            default -> throw new IllegalArgumentException("Unexpected content type: " + contentType);
+        };
     }
 }
