@@ -1,0 +1,82 @@
+discount_coupons
+id	bigint	NO	nextval('discount_coupons_id_seq'::regclass)
+name	character varying	NO
+coupon_code	character varying	NO
+discount_amount	numeric	YES
+discount_percentage	numeric	YES
+event_id	bigint	YES
+max_discount_amount	numeric	YES
+min_order_amount	numeric	YES
+usage_limit	integer	YES
+used_count	integer	NO	0
+valid_from	timestamp without time zone	NO
+valid_till	timestamp without time zone	NO
+status	character varying	NO	'active'::character varying
+created_at	timestamp without time zone	NO	now()
+updated_at	timestamp without time zone	YES
+
+event_category
+id	bigint	NO	nextval('event_category_id_seq'::regclass)
+name	character varying	NO	
+
+events
+id	bigint	NO	nextval('events_id_seq'::regclass)
+name	character varying	NO
+display_picture	character varying	YES
+description	text	YES
+hosted_from	timestamp without time zone	NO
+created_at	timestamp without time zone	NO	now()
+updated_at	timestamp without time zone	NO
+category_id	bigint	NO
+location_id	bigint	NO
+venue	character varying	NO
+ticket_amount	numeric	NO
+status	smallint	NO	1
+capacity	integer	NO
+tickets_booked	integer	NO	0
+hosted_to	timestamp without time zone	NO
+
+events_users_mapping
+id	bigint	NO	nextval('events_users_mapping_id_seq'::regclass)
+user_id	bigint	NO
+event_id	bigint	NO
+role	USER-DEFINED	NO	'attendee'::event_user_role
+status	USER-DEFINED	NO	'pending'::event_user_status
+joined_on	timestamp without time zone	NO	now()
+created_at	timestamp without time zone	NO	now()
+updated_at	timestamp without time zone	NO
+
+
+
+locations
+id	bigint	NO	nextval('locations_id_seq'::regclass)
+city	character varying	NO
+state	character varying	NO
+country	character varying	NO
+pincode	character varying	YES
+created_at	timestamp without time zone	NO	now()
+updated_at	timestamp without time zone	NO
+
+users
+id	bigint	NO	nextval('users_id_seq'::regclass)
+username	character varying	NO
+email	character varying	NO
+first_name	character varying	NO
+last_name	character varying	NO
+phone_number	character varying	NO
+created_at	timestamp without time zone	YES	CURRENT_TIMESTAMP
+updated_at	timestamp without time zone	YES	CURRENT_TIMESTAMP
+
+transactions
+id	bigint	NO	nextval('transactions_id_seq'::regclass)
+user_id	bigint	NO
+event_id	bigint	NO
+discount_id	bigint	YES
+total_amount	numeric	NO
+discount	numeric	YES	0
+status	USER-DEFINED	NO
+payment_status	USER-DEFINED	NO
+payment_gateway	character varying	YES
+gateway_transaction_id	character varying	YES
+created_at	timestamp without time zone	NO	now()
+updated_at	timestamp without time zone	YES
